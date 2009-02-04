@@ -1,13 +1,28 @@
--- | Implementation of the HMAC algorithm for SHA hash functions.
+--------------------------------------------------------------------------------
+-- |
+-- Module     : Data.Digest.HMAC.SHA
+-- Copyright  : (c) Louis J. Scoras 2009
+-- License    : BSD3
+--
+-- Maintainer : louis.j.scoras@gmail.com
+-- Stability  : experimental
+--
+-- Implementation of the HMAC algorithm for SHA hash functions.
+--
+--------------------------------------------------------------------------------
+
 module Data.Digest.HMAC.SHA
-  ( HMAC
-  , byteStringHMAC
-  , hexHMAC
+  ( -- * Data Types
+    HMAC
+    -- * HMAC Functions
   , hmac_sha1
   , hmac_sha224
   , hmac_sha256
   , hmac_sha384
   , hmac_sha512
+    -- * Rendering Functions
+  , byteStringHMAC
+  , hexHMAC
   )
 where
 
