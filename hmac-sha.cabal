@@ -19,3 +19,7 @@ Library
   Build-Depends:     base, bytestring, SHA == 1.0.*
   Exposed-Modules:   Data.Digest.SHA.HMAC
 
+Source-Repository head
+  Type:              git
+  Location:          git://github.com/ljsc/hmac-sha.git
+
