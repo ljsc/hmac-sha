@@ -60,19 +60,37 @@ a `xorB` b = BS.pack $ BS.zipWith xor a b
 --------------------------------------------------------------------------------
 -- HMAC Implementations via SHA:
 --------------------------------------------------------------------------------
+-- TODO: Clean this up when Haddock fixes support for type synonyms.
 
-hmac_sha1,
-  hmac_sha256, hmac_sha224,
-  hmac_sha384, hmac_sha512
-    :: BS.ByteString -- ^ The secret key
-    -> BS.ByteString -- ^ The message to compute the hash for
-    -> String        -- ^ The computed HMAC
+-- |Compute HMAC with the SHA1 hash function.
+hmac_sha1 :: BS.ByteString -- ^ Secret Key
+          -> BS.ByteString -- ^ Message
+          -> String        -- ^ Computed HMAC
+hmac_sha1   = hmac $ HA sha1    64 20
 
-hmac_sha1   = hmac $ HA sha1    64 20 -- ^ Compute HMAC with SHA1 algorithm
-hmac_sha224 = hmac $ HA sha224  64 28 -- ^ Compute HMAC with SHA224 algorithm
-hmac_sha256 = hmac $ HA sha256  64 32 -- ^ Compute HMAC with SHA256 algorithm
-hmac_sha384 = hmac $ HA sha384 128 48 -- ^ Compute HMAC with SHA384 algorithm
-hmac_sha512 = hmac $ HA sha512 128 64 -- ^ Compute HMAC with SHA512 algorithm
+-- |Compute HMAC with the SHA224 hash function.
+hmac_sha224 :: BS.ByteString -- ^ Secret Key
+            -> BS.ByteString -- ^ Message
+            -> String        -- ^ Computed HMAC
+hmac_sha224 = hmac $ HA sha224  64 28
+
+-- |Compute HMAC with the SHA256 hash function.
+hmac_sha256 :: BS.ByteString -- ^ Secret Key
+            -> BS.ByteString -- ^ Message
+            -> String        -- ^ Computed HMAC
+hmac_sha256 = hmac $ HA sha256  64 32
+
+-- |Compute HMAC with the SHA384 hash function.
+hmac_sha384 :: BS.ByteString -- ^ Secret Key
+            -> BS.ByteString -- ^ Message
+            -> String        -- ^ Computed HMAC
+hmac_sha384 = hmac $ HA sha384 128 48
+
+-- |Compute HMAC with the SHA512 hash function.
+hmac_sha512 :: BS.ByteString -- ^ Secret Key
+            -> BS.ByteString -- ^ Message
+            -> String        -- ^ Computed HMAC
+hmac_sha512 = hmac $ HA sha512 128 64
 
 --------------------------------------------------------------------------------
 -- Utils for inspecting ByteStrings as hex
