@@ -1,0 +1,21 @@
+Name:                hmac-sha
+Version:             0.1
+Cabal-Version:       >= 1.2
+License:             BSD3
+License-File:        LICENSE
+Author:              Louis J. Scoras
+Maintainer:          <louis.j.scoras@gmail.com>
+Synopsis:            Implementations of the HMAC Algorithm via SHA Hash Functions
+Category:            Cryptography
+Build-type:          Simple
+Stability:           experimental
+
+Description:         This library builds on top of Data.Digest.Pure.SHA to implement
+                     Keyed-Hash Message Authentication Codes (HMAC).  This will allow
+                     you to calculate HMACs without needing to bind to an external
+                     library such as OpenSSL.
+
+Library
+  Build-Depends:     base, bytestring, SHA == 1.0.*
+  Exposed-Modules:   Data.Digest.HMAC.SHA
+
