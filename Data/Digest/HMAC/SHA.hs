@@ -1,6 +1,9 @@
 -- | Implementation of the HMAC algorithm for SHA hash functions.
 module Data.Digest.HMAC.SHA
-  ( hmac_sha1
+  ( HMAC
+  , byteStringHMAC
+  , hexHMAC
+  , hmac_sha1
   , hmac_sha224
   , hmac_sha256
   , hmac_sha384
@@ -22,11 +25,17 @@ data HashAlgorithm = HA {
   ha_outputSize :: Int64
 }
 
+-- | Abstract type representing an HMAC result.
+newtype HMAC = HMAC { unHMAC :: Digest } deriving Eq
+
+instance Show HMAC where
+  show = ("HMAC [" ++) . (++ "]") . prettyHex . byteStringHMAC
+
 --
 -- Generalized HMAC algorithm.
 --
-hmac :: HashAlgorithm -> BS.ByteString -> BS.ByteString -> String
-hmac alg@(HA h bs hs) k m = showDigest outerHash
+hmac :: HashAlgorithm -> BS.ByteString -> BS.ByteString -> HMAC
+hmac alg@(HA h bs hs) k m = HMAC outerHash
   where key       = normalizeKey alg k
         ipadK     = key `xorB` BS.replicate bs 0x36
         opadK     = key `xorB` BS.replicate bs 0x5C
@@ -57,6 +66,14 @@ padRightTo size m = BS.append m (BS.replicate (size - BS.length m) 0x00)
 xorB :: BS.ByteString -> BS.ByteString -> BS.ByteString
 a `xorB` b = BS.pack $ BS.zipWith xor a b
 
+-- | Render HMAC result as a ByteString
+byteStringHMAC :: HMAC -> BS.ByteString
+byteStringHMAC = bytestringDigest . unHMAC
+
+-- | Render HMAC as a hex encoded String
+hexHMAC :: HMAC -> String
+hexHMAC = showDigest . unHMAC
+
 --------------------------------------------------------------------------------
 -- HMAC Implementations via SHA:
 --------------------------------------------------------------------------------
@@ -65,31 +82,31 @@ a `xorB` b = BS.pack $ BS.zipWith xor a b
 -- |Compute HMAC with the SHA1 hash function.
 hmac_sha1 :: BS.ByteString -- ^ Secret Key
           -> BS.ByteString -- ^ Message
-          -> String        -- ^ Computed HMAC
+          -> HMAC          -- ^ Computed HMAC
 hmac_sha1   = hmac $ HA sha1    64 20
 
 -- |Compute HMAC with the SHA224 hash function.
 hmac_sha224 :: BS.ByteString -- ^ Secret Key
             -> BS.ByteString -- ^ Message
-            -> String        -- ^ Computed HMAC
+            -> HMAC          -- ^ Computed HMAC
 hmac_sha224 = hmac $ HA sha224  64 28
 
 -- |Compute HMAC with the SHA256 hash function.
 hmac_sha256 :: BS.ByteString -- ^ Secret Key
             -> BS.ByteString -- ^ Message
-            -> String        -- ^ Computed HMAC
+            -> HMAC          -- ^ Computed HMAC
 hmac_sha256 = hmac $ HA sha256  64 32
 
 -- |Compute HMAC with the SHA384 hash function.
 hmac_sha384 :: BS.ByteString -- ^ Secret Key
             -> BS.ByteString -- ^ Message
-            -> String        -- ^ Computed HMAC
+            -> HMAC          -- ^ Computed HMAC
 hmac_sha384 = hmac $ HA sha384 128 48
 
 -- |Compute HMAC with the SHA512 hash function.
 hmac_sha512 :: BS.ByteString -- ^ Secret Key
             -> BS.ByteString -- ^ Message
-            -> String        -- ^ Computed HMAC
+            -> HMAC          -- ^ Computed HMAC
 hmac_sha512 = hmac $ HA sha512 128 64
 
 --------------------------------------------------------------------------------
