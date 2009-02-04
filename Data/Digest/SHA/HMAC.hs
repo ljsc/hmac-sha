@@ -1,6 +1,6 @@
 --------------------------------------------------------------------------------
 -- |
--- Module     : Data.Digest.HMAC.SHA
+-- Module     : Data.Digest.SHA.HMAC
 -- Copyright  : (c) Louis J. Scoras 2009
 -- License    : BSD3
 --
@@ -11,7 +11,7 @@
 --
 --------------------------------------------------------------------------------
 
-module Data.Digest.HMAC.SHA
+module Data.Digest.SHA.HMAC
   ( -- * Data Types
     HMAC
     -- * HMAC Functions

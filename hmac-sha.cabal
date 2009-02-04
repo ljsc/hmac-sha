@@ -17,5 +17,5 @@ Description:         This library builds on top of Data.Digest.Pure.SHA to imple
 
 Library
   Build-Depends:     base, bytestring, SHA == 1.0.*
-  Exposed-Modules:   Data.Digest.HMAC.SHA
+  Exposed-Modules:   Data.Digest.SHA.HMAC
 
