@@ -1,7 +1,7 @@
 --------------------------------------------------------------------------------
 -- |
 -- Module     : Data.Digest.SHA.HMAC
--- Copyright  : (c) Louis J. Scoras 2009
+-- Copyright  : (c) 2009 Louis J. Scoras
 -- License    : BSD3
 --
 -- Maintainer : louis.j.scoras@gmail.com
